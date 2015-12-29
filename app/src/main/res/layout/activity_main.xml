@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" />
+        tools:context=".MainActivity">
 
-    <LinearLayout
-        android:background="@color/lightgray"
-        android:id="@+id/menus"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_activity_bottom_menus_height"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        <include layout="@layout/toolbar_layout" />
 
-        <RadioGroup
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/menus"
+            android:layout_below="@+id/toolbar"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/menus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_activity_bottom_menus_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightgray"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radio1"
-                style="@style/MainActivityBottomMenuItem"
-                android:drawableTop="@drawable/base_radio_selector"
-                android:text="@string/main_menu_item1" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radio2"
-                style="@style/MainActivityBottomMenuItem"
-                android:drawableTop="@drawable/base_radio_selector"
-                android:text="@string/main_menu_item2" />
+                <RadioButton
+                    android:id="@+id/radio1"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_item1" />
+
+                <RadioButton
+                    android:id="@+id/radio2"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_item2" />
 
 
-            <RadioButton
-                android:id="@+id/radio3"
-                style="@style/MainActivityBottomMenuItem"
-                android:drawableTop="@drawable/base_radio_selector"
-                android:text="@string/main_menu_item3" />
+                <RadioButton
+                    android:id="@+id/radio3"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_item3" />
 
-            <RadioButton
-                android:id="@+id/radio4"
-                style="@style/MainActivityBottomMenuItem"
-                android:drawableTop="@drawable/base_radio_selector"
-                android:text="@string/main_menu_item4" />
+                <RadioButton
+                    android:id="@+id/radio4"
+                    style="@style/MainActivityBottomMenuItem"
+                    android:drawableTop="@drawable/base_radio_selector"
+                    android:text="@string/main_menu_item4" />
 
-        </RadioGroup>
-    </LinearLayout>
+            </RadioGroup>
+        </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+</merge>
