@@ -20,6 +20,7 @@ import app.fxa.com.appframework.R;
 import app.fxa.com.appframework.util.AppManager;
 
 /**
+ * 启动页面
  * Created by admin on 2016/1/12.
  */
 
