@@ -3,11 +3,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
-    android:minHeight="?attr/actionBarSize"
-    tools:context=".MainActivity">
+    android:layout_height="45dp"
+    android:background="@color/white"
+    >
+    <!-- android:minHeight="?attr/actionBarSize" -->
+    <ImageView
+        android:id="@+id/leftBtn1"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@drawable/back_btn_selector"
+        android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/text_left1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="left"
+        android:layout_marginLeft="16dp"
+        android:clickable="true"
+        android:text="按钮1"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/leftBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/topbar_edit_search_shape"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@null"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:ems="14"
+            android:hint="输入关键字"
+            android:imeOptions="actionSearch"
+            android:paddingBottom="2dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:singleLine="true"
+            android:textColor="#666666"
+            android:textColorHint="#999999"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="8dp"
+            android:layout_marginRight="15dp"
+            android:clickable="true"
+            android:src="@drawable/search_icon" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/titleView"
@@ -15,25 +91,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:clickable="true"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="标题"
-        android:clickable="true"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-
-    <TextView
-        android:id="@+id/right2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="right"
-        android:text="按钮2"
-        android:clickable="true"
-        android:layout_marginRight="10dp"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        />
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
 
     <TextView
@@ -42,12 +107,56 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="right"
+        android:layout_marginRight="16dp"
         android:text="按钮1"
-        android:layout_marginRight="10dp"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-        />
+        android:textSize="15sp"
+        android:visibility="gone" />
 
+
+    <TextView
+        android:id="@+id/right2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:text="按钮2"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+
+    <ImageView
+        android:id="@+id/rightBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/rightBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/rightBtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
 
 
 </android.support.v7.widget.Toolbar>
