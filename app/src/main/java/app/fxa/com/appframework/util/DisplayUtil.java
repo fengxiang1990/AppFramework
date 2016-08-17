@@ -1,6 +1,18 @@
 package app.fxa.com.appframework.util;
 
+import android.app.Activity;
+import android.content.Context;
+
 public class DisplayUtil {
+
+	public static int getScreenWidth(Activity context){
+      return context.getWindowManager().getDefaultDisplay().getWidth();
+	}
+
+	public static int getScreenHeight(Activity context){
+		return context.getWindowManager().getDefaultDisplay().getHeight();
+	}
+
 	/**
 	  * 将px值转换为dip或dp值，保证尺寸大小不变
 	  * 

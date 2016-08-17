@@ -13,20 +13,20 @@ import rx.schedulers.Schedulers;
 /**
  * Created by fengxiang on 2016/8/12.
  */
-public class TaskQueue {
+public class ErrorPageTaskQueue {
 
     int SIZE = 5;
     static ArrayBlockingQueue<ErrorTask> queue;
-    private static TaskQueue taskQueue = null;
+    private static ErrorPageTaskQueue errorPageTaskQueue = null;
 
     static Context context;
 
     public static void init(Context context) {
-        taskQueue = new TaskQueue();
-        TaskQueue.context = context;
+        errorPageTaskQueue = new ErrorPageTaskQueue();
+        ErrorPageTaskQueue.context = context;
     }
 
-    private TaskQueue() {
+    private ErrorPageTaskQueue() {
         queue = new ArrayBlockingQueue<ErrorTask>(SIZE);
         Observable.just(null).repeat().observeOn(Schedulers.newThread())
                 .flatMap(new Func1<Object, Observable<ErrorTask>>() {

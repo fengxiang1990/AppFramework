@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import app.fxa.com.appframework.R;
-import app.fxa.com.appframework.common.error.ErrorTask;
-import app.fxa.com.appframework.common.error.TaskQueue;
 import app.fxa.com.appframework.common.error.TestActivity;
 
 

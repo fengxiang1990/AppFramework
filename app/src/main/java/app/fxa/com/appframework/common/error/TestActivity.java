@@ -35,7 +35,7 @@ public class TestActivity extends BaseRequestActivity {
 
                 Log.e(tag, "net work error");
                 ErrorTask task = new ErrorTask(TestActivity.this);
-                TaskQueue.put(task);
+                ErrorPageTaskQueue.put(task);
 
                 finish();
             }

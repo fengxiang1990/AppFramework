@@ -4,8 +4,12 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
-import app.fxa.com.appframework.common.error.TaskQueue;
+import app.fxa.com.appframework.common.error.ErrorPageTaskQueue;
+import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
 
 
 public class MyApplication extends Application {
@@ -14,8 +18,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Log.i("applicayion", "onCreate");
-        Fresco.initialize(this);
-        TaskQueue.init(this);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
+                .newBuilder(this, okHttpClient)
+                .build();
+        Fresco.initialize(this,config);
+        ErrorPageTaskQueue.init(this);
 
     }
 

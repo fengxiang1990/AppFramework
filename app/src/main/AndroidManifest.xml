@@ -67,6 +67,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".module.login.ui.LoginActivity"/>
         <activity android:name=".common.error.ErrorActivity"/>
         <activity android:name=".common.error.TestActivity"/>
     </application>

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import app.fxa.com.appframework.R;
 import app.fxa.com.appframework.common.BaseActivityWithToolBar;
 import app.fxa.com.appframework.common.TabEntity;
+import app.fxa.com.appframework.module.login.ui.LoginActivity;
 import app.fxa.com.appframework.util.ViewFindUtils;
 
 /**
@@ -41,8 +42,9 @@ public class MainActivity extends BaseActivityWithToolBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_tab);
         frgmentManager = getSupportFragmentManager();
-        for (String title : mTitles) {
-            mFragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + title));
+        mFragments.add(new HomeFragment());
+        for (int i=1;i<mTitles.length;i++) {
+            mFragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + mTitles[i]));
         }
 
         for (int i = 0; i < mTitles.length; i++) {
@@ -59,7 +61,11 @@ public class MainActivity extends BaseActivityWithToolBar {
         mTabLayout_1.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                switchFragment(frgmentManager.beginTransaction(), mFragments.get(position));
+                if (position == 3) {
+                    LoginActivity.start(MainActivity.this);
+                } else {
+                    switchFragment(frgmentManager.beginTransaction(), mFragments.get(position));
+                }
             }
 
             @Override
