@@ -11,6 +11,7 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import app.fxa.com.appframework.R;
 import app.fxa.com.appframework.common.BaseActivityWithToolBar;
@@ -37,13 +38,16 @@ public class MainActivity extends BaseActivityWithToolBar {
     private CommonTabLayout mTabLayout_1;
     FragmentManager frgmentManager;
 
+    //tab 点击顺序队列
+    List<Integer> tabSelectedQueue = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_tab);
         frgmentManager = getSupportFragmentManager();
         mFragments.add(new HomeFragment());
-        for (int i=1;i<mTitles.length;i++) {
+        for (int i = 1; i < mTitles.length; i++) {
             mFragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + mTitles[i]));
         }
 
@@ -57,10 +61,12 @@ public class MainActivity extends BaseActivityWithToolBar {
         mTabLayout_1.setTabData(mTabEntities);
 
         mTabLayout_1.setCurrentTab(0);
+        tabSelectedQueue.add(0);
         switchFragment(frgmentManager.beginTransaction(), mFragments.get(0));
         mTabLayout_1.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
+                tabSelectedQueue.add(position);
                 if (position == 3) {
                     LoginActivity.start(MainActivity.this);
                 } else {
@@ -75,6 +81,16 @@ public class MainActivity extends BaseActivityWithToolBar {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mTabLayout_1.getCurrentTab() == 3) {
+            int lastSelectedTab = tabSelectedQueue.get(tabSelectedQueue.size() - 2);
+            mTabLayout_1.setCurrentTab(lastSelectedTab);
+            tabSelectedQueue.add(lastSelectedTab);
+        }
+    }
 
     public void switchFragment(FragmentTransaction fragmentTransaction,
                                Fragment fragment) {
