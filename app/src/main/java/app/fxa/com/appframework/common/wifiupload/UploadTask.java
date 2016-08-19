@@ -2,6 +2,8 @@ package app.fxa.com.appframework.common.wifiupload;
 
 import android.util.Log;
 
+import java.io.Serializable;
+
 import app.fxa.com.appframework.common.restful.RestResponseListener;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -10,7 +12,7 @@ import retrofit2.Response;
  * wifi下上传任务模型类
  * Created by fengxiang on 2016/8/19.
  */
-public class UploadTask<T> {
+public class UploadTask<T> implements Serializable{
 
     String tag = "UploadTask";
 

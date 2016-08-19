@@ -2,13 +2,14 @@ package app.fxa.com.appframework.common.wifiupload;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
  * Created by fengxiang on 2016/8/19.
  */
-public class UploadTaskQueue {
+public class UploadTaskQueue implements Serializable{
 
     static String tag = "UploadTaskQueue";
     private static BlockingQueue<UploadTask> queue = new ArrayBlockingQueue<UploadTask>(20);
