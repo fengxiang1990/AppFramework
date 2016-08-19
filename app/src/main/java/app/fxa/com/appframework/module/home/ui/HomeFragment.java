@@ -3,16 +3,24 @@ package app.fxa.com.appframework.module.home.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import app.fxa.com.appframework.R;
+import app.fxa.com.appframework.common.wifiupload.UploadRequest;
+import app.fxa.com.appframework.common.wifiupload.UploadTask;
+import app.fxa.com.appframework.common.wifiupload.UploadTaskQueue;
 import app.fxa.com.appframework.util.ImageUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -20,6 +28,7 @@ import butterknife.Unbinder;
  * Created by fengxiang on 2016/8/17.
  */
 public class HomeFragment extends Fragment {
+    String tag = "HomeFragment";
     Unbinder unbinder;
 
     @BindView(R.id.img)
@@ -52,6 +61,39 @@ public class HomeFragment extends Fragment {
         ImageUtils.loadImgFullScreen(getActivity(), simpleDraweeView4, url4);
         return rootView;
     }
+
+
+    boolean isWifi = false;
+
+    @OnClick(R.id.img)
+    void imgClick() {
+        Log.e(tag, "img clicked");
+        if (!isWifi) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("uid", "001");
+            map.put("img", "img1");
+            UploadRequest<String> request = new UploadRequest<>(map);
+            UploadTask<String> task = new UploadTask<String>(request);
+            UploadTaskQueue.put(task);
+        }
+    }
+
+    @OnClick(R.id.img2)
+    void img2Click() {
+        if (!isWifi) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("uid", "001");
+            map.put("img", "img2");
+            UploadRequest<String> request = new UploadRequest<>(map);
+
+            Map<String, Object> map2 = new HashMap<>();
+            map.put("uid", "001");
+            UploadRequest<String> request2 = new UploadRequest<>(map2);
+            UploadTask<String> task = new UploadTask<String>(request, request2);
+            UploadTaskQueue.put(task);
+        }
+    }
+
 
     @Override
     public void onDestroyView() {

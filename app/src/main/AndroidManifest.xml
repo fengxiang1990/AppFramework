@@ -70,6 +70,16 @@
         <activity android:name=".module.login.ui.LoginActivity"/>
         <activity android:name=".common.error.ErrorActivity"/>
         <activity android:name=".common.error.TestActivity"/>
+
+
+        <receiver android:name=".common.wifiupload.NetWorkStateReceiver">
+            <intent-filter>
+                <action android:name="android.net.wifi.RSSI_CHANGED"/>
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
