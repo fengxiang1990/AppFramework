@@ -1,6 +1,7 @@
 package app.fxa.com.appframework.module.home.ui;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import app.fxa.com.appframework.R;
 import app.fxa.com.appframework.common.wifiupload.UploadRequest;
 import app.fxa.com.appframework.common.wifiupload.UploadTask;
 import app.fxa.com.appframework.common.wifiupload.UploadTaskQueue;
+import app.fxa.com.appframework.module.home.request.HomeRequest;
 import app.fxa.com.appframework.util.ImageUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,25 +75,43 @@ public class HomeFragment extends Fragment {
             Map<String, Object> map = new HashMap<>();
             map.put("uid", "001");
             map.put("img", "img1");
-            UploadRequest<String> request = new UploadRequest<>(map);
-            UploadTask<String> task = new UploadTask<String>(request);
-            UploadTaskQueue.put(task);
+            try {
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "test.JPG";
+                UploadRequest request = new UploadRequest(map, new File(filePath));
+                UploadTask task = new UploadTask(request);
+                UploadTaskQueue.put(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @OnClick(R.id.img2)
     void img2Click() {
+//        new HomeRequest().test(new RestResponseListener<RestResponse>() {
+//                @Override
+//                public void onSuccess(Call<RestResponse> call, Response<RestResponse> response) {
+//                    Log.e(tag, response.body().toString());
+//                }
+//
+//                @Override
+//                public void onError(Call<RestResponse> call, Throwable t) {
+//                    Log.e(tag, t.getMessage());
+//                }
+//        });
         if (!isWifi) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("uid", "001");
-            map.put("img", "img2");
-            UploadRequest<String> request = new UploadRequest<>(map);
-
-            Map<String, Object> map2 = new HashMap<>();
-            map.put("uid", "001");
-            UploadRequest<String> request2 = new UploadRequest<>(map2);
-            UploadTask<String> task = new UploadTask<String>(request, request2);
-            UploadTaskQueue.put(task);
+            try {
+                Map<String, Object> map = new HashMap<>();
+                map.put("uid", "001");
+                map.put("img", "img1");
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "test.JPG";
+                UploadRequest request = new UploadRequest(map, new File(filePath));
+                HomeRequest homeRequest = new HomeRequest();
+                UploadTask task = new UploadTask(request, homeRequest);
+                UploadTaskQueue.put(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

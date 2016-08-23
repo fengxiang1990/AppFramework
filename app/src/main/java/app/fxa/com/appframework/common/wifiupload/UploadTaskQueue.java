@@ -14,7 +14,7 @@ public class UploadTaskQueue implements Serializable{
     static String tag = "UploadTaskQueue";
     private static BlockingQueue<UploadTask> queue = new ArrayBlockingQueue<UploadTask>(20);
 
-    public static void put(UploadTask task) {
+        public static void put(UploadTask task) {
         try {
             Log.e(tag, "put a task");
             queue.put(task);

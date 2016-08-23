@@ -5,42 +5,42 @@ package app.fxa.com.appframework.common.restful;
  */
 public class RestResponse<T> {
 
-    private String Status;
-    private int Code;
+    private int code;
 
-    private String Message;
+    private String message;
 
-    private T Data;
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String status) {
-        Status = status;
-    }
-
-    public T getResult() {
-        return Data;
-    }
-
-    public void setResult(T result) {
-        this.Data = result;
-    }
+    private T data;
 
     public int getCode() {
-        return Code;
+        return code;
     }
 
     public void setCode(int code) {
-        Code = code;
+        this.code = code;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "RestResponse{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

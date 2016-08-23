@@ -56,10 +56,10 @@ public abstract class RestResponseListener<T> implements Callback<T> {
             onError(call, new ErrorResponse(-1, "不能连接到服务器,请检查网络连接"));
             return;
         }else if(t instanceof SocketTimeoutException){
-            onError(call, new ErrorResponse(-2, "请求超时"));
+            onError(call, new ErrorResponse(-2, t.getMessage()));
             return;
         }else if(t instanceof IOException){
-            onError(call, new ErrorResponse(-3, "数据传输失败"));
+            onError(call, new ErrorResponse(-3, t.getMessage()));
             return;
         }else if(t instanceof ProtocolException){
             onError(call, new ErrorResponse(-4, "尝试过多的连接"));
