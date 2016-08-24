@@ -8,11 +8,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
-
 /**
  * 监控网络状态广播
  * Created by fengxiang on 2016/8/19.
@@ -53,34 +48,27 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
     }
 
     public void onConnectWifi() {
-        Observable.just(null).repeat().observeOn(Schedulers.newThread())
-                .flatMap(new Func1<Object, Observable<UploadTask>>() {
-                    @Override
-                    public Observable<UploadTask> call(Object object) {
-                        try {
-                            UploadTask task =  UploadTaskQueue.take();
-                            return Observable.just(task);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-                })
-                .subscribe(new Subscriber<UploadTask>() {
-                    @Override
-                    public void onCompleted() {
+        UploadTask task = UploadTaskQueue.take();
+        execute(task);
 
-                    }
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
+    public void execute(final UploadTask task) {
+        if (task != null) {
+            task.execute(new UploadListener() {
+                @Override
+                public void onSuccess() {
+                    Log.e(tag, "task execute success");
+                    UploadTask task = UploadTaskQueue.take();
+                    execute(task);
+                }
 
-                    }
-
-                    @Override
-                    public void onNext(UploadTask task) {
-                        task.execute();
-                    }
-                });
+                @Override
+                public void onError() {
+                    Log.e(tag, "task execute error and  retry forever");
+                    task.execute(this);
+                }
+            });
+        }
     }
 }

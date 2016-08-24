@@ -47,12 +47,13 @@ public class UploadTask implements Serializable {
     /**
      * 执行任务
      */
-    public void execute() {
+    public void execute(final UploadListener listener) {
         Log.e(tag, "execute...");
         uploadRequest.execute(uploadRequest.params, new RestResponseListener<RestResponse>() {
             @Override
             public void onSuccess(Call<RestResponse> call, Response<RestResponse> response) {
                 Log.e(tag, "upload exucete success");
+                listener.onSuccess();
                 if (afterUploadRequest != null) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("url", response.body().getMessage());
@@ -74,6 +75,7 @@ public class UploadTask implements Serializable {
             @Override
             public void onError(Call<RestResponse> call, Throwable t) {
                 Log.e(tag, t.getMessage());
+                listener.onError();
             }
         });
     }
