@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.Map;
 
 import app.fxa.com.appframework.common.restful.RestClient;
@@ -19,7 +18,9 @@ import retrofit2.Call;
  * 上传任务请求类
  * Created by fengxiang on 2016/8/19.
  */
-public class UploadRequest implements BaseRequest, Serializable {
+public class UploadRequest extends BaseRequest {
+
+    private static final long serialVersionUID = -751337600096084365L;
 
     String tag = "UploadRequest";
     public Map<String, Object> params;

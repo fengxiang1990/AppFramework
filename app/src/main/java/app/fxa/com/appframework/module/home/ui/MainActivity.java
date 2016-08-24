@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.flyco.tablayout.CommonTabLayout;
@@ -16,7 +18,9 @@ import java.util.List;
 import app.fxa.com.appframework.R;
 import app.fxa.com.appframework.common.BaseActivityWithToolBar;
 import app.fxa.com.appframework.common.TabEntity;
+import app.fxa.com.appframework.common.wifiupload.UploadTaskQueue;
 import app.fxa.com.appframework.module.login.ui.LoginActivity;
+import app.fxa.com.appframework.util.FileUtils;
 import app.fxa.com.appframework.util.ViewFindUtils;
 
 /**
@@ -24,6 +28,7 @@ import app.fxa.com.appframework.util.ViewFindUtils;
  */
 public class MainActivity extends BaseActivityWithToolBar {
 
+    String tag = "MainActivity";
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     private String[] mTitles = {"首页", "消息", "联系人", "更多"};
@@ -105,5 +110,16 @@ public class MainActivity extends BaseActivityWithToolBar {
             fragmentTransaction.show(fragment);
         }
         fragmentTransaction.commit();
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Log.e(tag, "key back");
+            FileUtils.createUploadTaskFile(this);
+            FileUtils.wiriteUploadTaskQueueIntoFile(UploadTaskQueue.queue);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

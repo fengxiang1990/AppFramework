@@ -12,7 +12,7 @@ import retrofit2.Call;
 /**
  * Created by fengxiang on 2016/8/23.
  */
-public class HomeRequest implements BaseRequest {
+public class HomeRequest extends BaseRequest {
 
     public void test(String url, RestResponseListener<RestResponse> listener) {
         HomeService homeService = RestClient.createRest(HomeService.class);

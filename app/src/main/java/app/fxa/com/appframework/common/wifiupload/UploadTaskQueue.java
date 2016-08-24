@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 public class UploadTaskQueue implements Serializable{
 
     static String tag = "UploadTaskQueue";
-    private static BlockingQueue<UploadTask> queue = new ArrayBlockingQueue<UploadTask>(20);
+    public static BlockingQueue<UploadTask> queue = new ArrayBlockingQueue<UploadTask>(20);
 
         public static void put(UploadTask task) {
         try {
