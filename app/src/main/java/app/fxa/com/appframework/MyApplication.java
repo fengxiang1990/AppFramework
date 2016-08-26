@@ -10,6 +10,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import java.util.concurrent.BlockingQueue;
 
 import app.fxa.com.appframework.common.error.ErrorPageTaskQueue;
+import app.fxa.com.appframework.common.restful.RestClient;
 import app.fxa.com.appframework.common.wifiupload.UploadTask;
 import app.fxa.com.appframework.common.wifiupload.UploadTaskQueue;
 import app.fxa.com.appframework.util.FileUtils;
@@ -29,6 +30,7 @@ public class MyApplication extends Application {
                 .build();
         Fresco.initialize(this, config);
         ErrorPageTaskQueue.init(this);
+        RestClient.init(this);
         BlockingQueue<UploadTask> queue = FileUtils.readUploadTaskQueueFromFile();
         if (queue != null) {
             UploadTaskQueue.queue = queue;

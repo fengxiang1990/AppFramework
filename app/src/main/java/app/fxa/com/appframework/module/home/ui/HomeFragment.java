@@ -13,18 +13,24 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import app.fxa.com.appframework.R;
+import app.fxa.com.appframework.common.restful.RestResponse;
+import app.fxa.com.appframework.common.restful.RestResponseListener;
 import app.fxa.com.appframework.common.wifiupload.UploadRequest;
 import app.fxa.com.appframework.common.wifiupload.UploadTask;
 import app.fxa.com.appframework.common.wifiupload.UploadTaskQueue;
+import app.fxa.com.appframework.module.home.model.Book;
 import app.fxa.com.appframework.module.home.request.HomeRequest;
 import app.fxa.com.appframework.util.ImageUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 /**
@@ -66,10 +72,26 @@ public class HomeFragment extends Fragment {
     }
 
 
+    void getBooks(){
+        Log.e(tag, "getBooks");
+        new HomeRequest().books(new RestResponseListener<RestResponse<List<Book>>>() {
+            @Override
+            public void onSuccess(Call<RestResponse<List<Book>>> call, Response<RestResponse<List<Book>>> response) {
+                RestResponse<List<Book>> restResponse =   response.body();
+                Log.e(tag,restResponse.toString());
+            }
+
+            @Override
+            public void onError(Call<RestResponse<List<Book>>> call, Throwable t) {
+                Log.e(tag,t.getMessage());
+            }
+        });
+    }
     boolean isWifi = false;
 
     @OnClick(R.id.img)
     void imgClick() {
+        getBooks();
         Log.e(tag, "img clicked");
         if (!isWifi) {
             Map<String, Object> map = new HashMap<>();
