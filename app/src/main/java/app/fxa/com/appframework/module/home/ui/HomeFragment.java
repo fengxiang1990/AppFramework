@@ -99,7 +99,8 @@ public class HomeFragment extends Fragment {
             map.put("img", "img1");
             try {
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "test.JPG";
-                UploadRequest request = new UploadRequest(map, new File(filePath));
+                String filePath2 = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "DSC_0257.JPG";
+                UploadRequest request = new UploadRequest(map, new File(filePath), new File(filePath2));
                 UploadTask task = new UploadTask(request);
                 UploadTaskQueue.put(task);
             } catch (Exception e) {

@@ -24,9 +24,9 @@ public class UploadRequest extends BaseRequest {
 
     String tag = "UploadRequest";
     public Map<String, Object> params;
-    File file;
+    File[] file;
 
-    public UploadRequest(Map<String, Object> params, File file) {
+    public UploadRequest(Map<String, Object> params, File... file) {
         this.params = params;
         this.file = file;
     }
@@ -40,9 +40,17 @@ public class UploadRequest extends BaseRequest {
             Log.e(tag, UploadRequest.this.toString() + "execute");
             UploadService baseService = RestClient.createRest(UploadService.class);
             // 创建 RequestBody，用于封装 请求RequestBody
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-            Call<RestResponse> call = baseService.upload(body);
+            MultipartBody.Part[] bodys = new MultipartBody.Part[file.length];
+            Log.e(tag,"file size-->"+file.length);
+            int j = 1;
+            for (int i = 0; i < file.length; i++) {
+                File mFile = file[i];
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), mFile);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("file" + j, mFile.getName(), requestFile);
+                bodys[i] = body;
+                j++;
+            }
+            Call<RestResponse> call = baseService.upload(bodys);
             call.enqueue(listener);
         } catch (Exception e) {
             e.printStackTrace();

@@ -19,6 +19,6 @@ public interface UploadService {
      * @return
      */
     @Multipart
-    @POST("/file/upload")
-    Call<RestResponse> upload(@Part MultipartBody.Part file);
+    @POST("/file/uploads")
+    Call<RestResponse> upload(@Part MultipartBody.Part... file);
 }

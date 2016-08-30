@@ -75,6 +75,7 @@ public class UploadTask implements Serializable {
             @Override
             public void onError(Call<RestResponse> call, Throwable t) {
                 Log.e(tag, t.getMessage());
+                t.printStackTrace();
                 listener.onError();
             }
         });
