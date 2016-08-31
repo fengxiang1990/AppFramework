@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import app.fxa.com.appframework.R;
+import app.fxa.com.appframework.common.restful.ErrorResponse;
 import app.fxa.com.appframework.common.restful.RestResponse;
 import app.fxa.com.appframework.common.restful.RestResponseListener;
 import app.fxa.com.appframework.common.wifiupload.UploadRequest;
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onError(Call<RestResponse<List<Book>>> call, Throwable t) {
+            public void onError(Call<RestResponse<List<Book>>> call, ErrorResponse t) {
                 Log.e(tag, t.getMessage());
             }
         });
@@ -118,7 +119,7 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public void onError(Call<RestResponse> call, Throwable t) {
+                public void onError(Call<RestResponse> call, ErrorResponse t) {
                     Log.e(tag, t.getMessage());
                     progressDialog.dismiss();
                 }
