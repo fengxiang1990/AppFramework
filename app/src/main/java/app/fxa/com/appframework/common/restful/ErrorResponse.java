@@ -5,8 +5,8 @@ package app.fxa.com.appframework.common.restful;
  */
 public class ErrorResponse extends Throwable{
 
-    int code;
-    String message;
+    public int code;
+    public String message;
 
 
     public ErrorResponse(int code, String message) {

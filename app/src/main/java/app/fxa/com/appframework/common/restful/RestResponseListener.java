@@ -20,7 +20,7 @@ public abstract class RestResponseListener<T> implements Callback<T> {
 
     public abstract void onSuccess(Call<T> call, Response<T> response);
 
-    public abstract void onError(Call<T> call, Throwable t);
+    public abstract void onError(Call<T> call, ErrorResponse response);
 
 
     @Override
@@ -31,21 +31,26 @@ public abstract class RestResponseListener<T> implements Callback<T> {
             Log.e(tag, "response code-->" + response.code());
             Log.e(tag, "response message-->" + response.message());
             String warnMsg = "";
+            int code = 0;
             switch (response.code()) {
                 case 400:
+                    code = 10001;
                     warnMsg = "错误的请求";
                     break;
                 case 403:
+                    code = 10002;
                     warnMsg = "没有请求权限";
                     break;
                 case 404:
+                    code = 10003;
                     warnMsg = "没有找到路径";
                     break;
                 case 500:
+                    code = 10004;
                     warnMsg = "服务器内部错误";
                     break;
             }
-            onError(call, new ErrorResponse(response.code(), warnMsg));
+            onError(call, new ErrorResponse(code, warnMsg));
         }
 
     }
@@ -53,20 +58,20 @@ public abstract class RestResponseListener<T> implements Callback<T> {
     @Override
     public void onFailure(Call<T> call, Throwable t) {
         if (t instanceof ConnectException) {
-            onError(call, new ErrorResponse(-1, "不能连接到服务器,请检查网络连接"));
+            onError(call, new ErrorResponse(10005, t.getMessage()));
             return;
-        }else if(t instanceof SocketTimeoutException){
-            onError(call, new ErrorResponse(-2, t.getMessage()));
+        } else if (t instanceof SocketTimeoutException) {
+            onError(call, new ErrorResponse(10006, t.getMessage()));
             return;
-        }else if(t instanceof IOException){
-            onError(call, new ErrorResponse(-3, t.getMessage()));
+        } else if (t instanceof IOException) {
+            onError(call, new ErrorResponse(10007, t.getMessage()));
             return;
-        }else if(t instanceof ProtocolException){
-            onError(call, new ErrorResponse(-4, "尝试过多的连接"));
+        } else if (t instanceof ProtocolException) {
+            onError(call, new ErrorResponse(10008, t.getMessage()));
             return;
         }
 
-        onError(call, t);
+        onError(call, new ErrorResponse(11000, t.getMessage()));
     }
 
 
