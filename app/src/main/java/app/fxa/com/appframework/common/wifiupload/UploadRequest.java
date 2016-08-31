@@ -9,6 +9,7 @@ import java.util.Map;
 import app.fxa.com.appframework.common.restful.RestClient;
 import app.fxa.com.appframework.common.restful.RestResponse;
 import app.fxa.com.appframework.common.restful.RestResponseListener;
+import app.fxa.com.appframework.util.GsonUtil;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -41,7 +42,7 @@ public class UploadRequest extends BaseRequest {
             UploadService baseService = RestClient.createRest(UploadService.class);
             // 创建 RequestBody，用于封装 请求RequestBody
             MultipartBody.Part[] bodys = new MultipartBody.Part[file.length];
-            Log.e(tag,"file size-->"+file.length);
+            Log.e(tag, "file size-->" + file.length);
             int j = 1;
             for (int i = 0; i < file.length; i++) {
                 File mFile = file[i];
@@ -50,7 +51,9 @@ public class UploadRequest extends BaseRequest {
                 bodys[i] = body;
                 j++;
             }
-            Call<RestResponse> call = baseService.upload(bodys);
+            RequestBody description = RequestBody.create(
+                    MediaType.parse("multipart/form-data"), GsonUtil.gson.toJson(map));
+            Call<RestResponse> call = baseService.upload(description, bodys);
             call.enqueue(listener);
         } catch (Exception e) {
             e.printStackTrace();

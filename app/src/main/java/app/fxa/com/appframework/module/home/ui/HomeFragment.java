@@ -1,5 +1,6 @@
 package app.fxa.com.appframework.module.home.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment {
         String url = "http://www.samsunghdwallpaper.com/images/2013/11/27/Mermaid%20swimming%20in%20the%20sea%20274.jpg";
         ImageUtils.loadImgFullScreen(getActivity(), simpleDraweeView, url);
 
-        String url2 = "http://www.shaimn.com/uploads/allimg/160301/1-160301110623.jpg";
+        String url2 = "http://www.tianya999.com/uploads/allimg/130425/2291-130425102209.jpg";
         ImageUtils.loadImgFullScreen(getActivity(), simpleDraweeView2, url2);
 
         String url3 = "http://www.467541.com/uploads/allimg/140226/1-140226112T0.jpg";
@@ -72,40 +73,56 @@ public class HomeFragment extends Fragment {
     }
 
 
-    void getBooks(){
+    void getBooks() {
         Log.e(tag, "getBooks");
         new HomeRequest().books(new RestResponseListener<RestResponse<List<Book>>>() {
             @Override
             public void onSuccess(Call<RestResponse<List<Book>>> call, Response<RestResponse<List<Book>>> response) {
-                RestResponse<List<Book>> restResponse =   response.body();
-                Log.e(tag,restResponse.toString());
+                RestResponse<List<Book>> restResponse = response.body();
+                Log.e(tag, restResponse.toString());
             }
 
             @Override
             public void onError(Call<RestResponse<List<Book>>> call, Throwable t) {
-                Log.e(tag,t.getMessage());
+                Log.e(tag, t.getMessage());
             }
         });
     }
-    boolean isWifi = false;
+
+    boolean isWifi = true;
 
     @OnClick(R.id.img)
     void imgClick() {
-        getBooks();
+        // getBooks();
         Log.e(tag, "img clicked");
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", "001");
+        map.put("img", "img1");
+        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "test.JPG";
+        String filePath2 = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "DSC_0257.JPG";
+        UploadRequest request = new UploadRequest(map, new File(filePath), new File(filePath2));
         if (!isWifi) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("uid", "001");
-            map.put("img", "img1");
             try {
-                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "test.JPG";
-                String filePath2 = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "DSC_0257.JPG";
-                UploadRequest request = new UploadRequest(map, new File(filePath), new File(filePath2));
                 UploadTask task = new UploadTask(request);
                 UploadTaskQueue.put(task);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "上传中...", "");
+            request.execute(map, new RestResponseListener<RestResponse>() {
+                @Override
+                public void onSuccess(Call<RestResponse> call, Response<RestResponse> response) {
+                    Log.e(tag, response.body().getMessage());
+                    progressDialog.dismiss();
+                }
+
+                @Override
+                public void onError(Call<RestResponse> call, Throwable t) {
+                    Log.e(tag, t.getMessage());
+                    progressDialog.dismiss();
+                }
+            });
         }
     }
 
@@ -126,9 +143,10 @@ public class HomeFragment extends Fragment {
             try {
                 Map<String, Object> map = new HashMap<>();
                 map.put("uid", "001");
-                map.put("img", "img1");
+                map.put("name", "fengxiang");
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "test.JPG";
-                UploadRequest request = new UploadRequest(map, new File(filePath));
+                String filePath2 = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "DSC_0257.JPG";
+                UploadRequest request = new UploadRequest(map, new File(filePath), new File(filePath2));
                 HomeRequest homeRequest = new HomeRequest();
                 UploadTask task = new UploadTask(request, homeRequest);
                 UploadTaskQueue.put(task);
