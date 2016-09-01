@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.fxa.com.appframework.common.restful.ErrorResponse;
 import app.fxa.com.appframework.common.restful.RestResponse;
 import app.fxa.com.appframework.common.restful.RestResponseListener;
 import retrofit2.Call;
@@ -64,7 +65,7 @@ public class UploadTask implements Serializable {
                         }
 
                         @Override
-                        public void onError(Call<RestResponse> call, Throwable t) {
+                        public void onError(Call<RestResponse> call, ErrorResponse errorResponse) {
                             Log.e(tag, "after upload exucete error");
                         }
                     });
@@ -73,9 +74,9 @@ public class UploadTask implements Serializable {
             }
 
             @Override
-            public void onError(Call<RestResponse> call, Throwable t) {
-                Log.e(tag, t.getMessage());
-                t.printStackTrace();
+            public void onError(Call<RestResponse> call, ErrorResponse errorResponse) {
+                Log.e(tag, errorResponse.getMessage());
+                errorResponse.printStackTrace();
                 listener.onError();
             }
         });
