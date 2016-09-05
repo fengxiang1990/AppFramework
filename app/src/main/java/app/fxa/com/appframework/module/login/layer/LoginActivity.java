@@ -1,4 +1,4 @@
-package app.fxa.com.appframework.module.login.ui;
+package app.fxa.com.appframework.module.login.layer;
 
 import android.content.Context;
 import android.content.Intent;

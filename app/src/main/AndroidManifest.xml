@@ -60,14 +60,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".module.home.ui.MainActivity">
+        <activity android:name=".module.home.layer.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".module.login.ui.LoginActivity"/>
+        <activity android:name=".module.login.layer.LoginActivity"/>
         <activity android:name=".common.error.ErrorActivity"/>
         <activity android:name=".common.error.TestActivity"/>
 

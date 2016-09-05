@@ -1,4 +1,4 @@
-package app.fxa.com.appframework.module.home.ui;
+package app.fxa.com.appframework.module.home.layer;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,7 @@ import app.fxa.com.appframework.R;
 import app.fxa.com.appframework.common.BaseActivityWithToolBar;
 import app.fxa.com.appframework.common.TabEntity;
 import app.fxa.com.appframework.common.wifiupload.UploadTaskQueue;
-import app.fxa.com.appframework.module.login.ui.LoginActivity;
+import app.fxa.com.appframework.module.login.layer.LoginActivity;
 import app.fxa.com.appframework.util.FileUtils;
 import app.fxa.com.appframework.util.ViewFindUtils;
 

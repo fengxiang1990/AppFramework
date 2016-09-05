@@ -1,4 +1,4 @@
-package app.fxa.com.appframework.module.home.ui;
+package app.fxa.com.appframework.module.home.layer;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
