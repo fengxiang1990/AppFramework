@@ -25,6 +25,8 @@ import app.fxa.com.appframework.common.wifiupload.UploadRequest;
 import app.fxa.com.appframework.common.wifiupload.UploadTask;
 import app.fxa.com.appframework.common.wifiupload.UploadTaskQueue;
 import app.fxa.com.appframework.module.home.model.Book;
+import app.fxa.com.appframework.module.home.presenter.HomePresenter;
+import app.fxa.com.appframework.module.home.presenter.HomePresenterImpl;
 import app.fxa.com.appframework.module.home.request.HomeRequest;
 import app.fxa.com.appframework.util.ImageUtils;
 import butterknife.BindView;
@@ -54,6 +56,8 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.img4)
     SimpleDraweeView simpleDraweeView4;
 
+    HomePresenter presenter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,6 +74,7 @@ public class HomeFragment extends Fragment {
 
         String url4 = "http://pic.4j4j.cn/upload/pic/20131202/c8c6f627d0.jpg";
         ImageUtils.loadImgFullScreen(getActivity(), simpleDraweeView4, url4);
+        presenter = new HomePresenterImpl(getActivity());
         return rootView;
     }
 
@@ -122,10 +127,12 @@ public class HomeFragment extends Fragment {
                 public void onError(Call<RestResponse> call, ErrorResponse t) {
                     Log.e(tag, t.getMessage());
                     progressDialog.dismiss();
+                    presenter.onNetWorkError(t);
                 }
             });
         }
     }
+
 
     @OnClick(R.id.img2)
     void img2Click() {
