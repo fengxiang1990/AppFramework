@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivityWithToolBar {
     String tag = "MainActivity";
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
-    private String[] mTitles = {"首页", "消息", "联系人", "更多"};
+    private String[] mTitles = {"首页", "日报", "联系人", "更多"};
     private int[] mIconUnselectIds = {
             R.mipmap.tab_home_unselect, R.mipmap.tab_speech_unselect,
             R.mipmap.tab_contact_unselect, R.mipmap.tab_more_unselect};
@@ -52,7 +52,8 @@ public class MainActivity extends BaseActivityWithToolBar {
         setContentView(R.layout.activity_common_tab);
         frgmentManager = getSupportFragmentManager();
         mFragments.add(new HomeFragment());
-        for (int i = 1; i < mTitles.length; i++) {
+        mFragments.add(new DayReportFragment());
+        for (int i = 2; i < mTitles.length; i++) {
             mFragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + mTitles[i]));
         }
 
